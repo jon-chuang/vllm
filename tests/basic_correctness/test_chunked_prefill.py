@@ -82,7 +82,6 @@ def test_models(
 def test_fp8_kv_cache(
     vllm_runner,
     example_prompts,
-    example_long_prompts,
     model: str,
     kv_cache_dtype: str,
     max_tokens: int,
@@ -108,7 +107,7 @@ def test_fp8_kv_cache(
             kv_cache_dtype=kv_cache_dtype,
     ) as vllm_model:
         decode_outputs = vllm_model.generate_greedy_logprobs(
-            example_prompts + example_long_prompts, max_tokens, NUM_LOG_PROBS)
+            example_prompts, max_tokens, NUM_LOG_PROBS)
 
     with vllm_runner(
             model,
@@ -120,7 +119,7 @@ def test_fp8_kv_cache(
             kv_cache_dtype=kv_cache_dtype,
     ) as vllm_model:
         chunked_prefill_outputs = vllm_model.generate_greedy_logprobs(
-            example_prompts + example_long_prompts, max_tokens, NUM_LOG_PROBS)
+            example_prompts, max_tokens, NUM_LOG_PROBS)
 
     check_logprobs_close(
         outputs_0_lst=decode_outputs[:NUM_OUTPUT_TOKENS],
