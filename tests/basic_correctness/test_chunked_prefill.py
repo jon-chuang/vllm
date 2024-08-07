@@ -74,7 +74,7 @@ def test_models(
 @pytest.mark.parametrize("model", FP8_MODELS)
 @pytest.mark.parametrize("kv_cache_dtype", ["fp8"])
 @pytest.mark.parametrize("max_tokens", [512])
-@pytest.mark.parametrize("chunked_prefill_token_size", [1, 4, 16])
+@pytest.mark.parametrize("chunked_prefill_token_size", [1, 4, 16, 32])
 @pytest.mark.parametrize("enforce_eager", [False, True])
 # NOTE: Increasing this in this suite will fail CI because we currently cannot
 # reset distributed env properly. Use a value > 1 just when you test.
